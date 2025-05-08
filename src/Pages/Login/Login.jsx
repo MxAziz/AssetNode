@@ -23,19 +23,19 @@ const Login = () => {
           {/* image */}
           <figure className="hidden lg:block">
             <img
-              className=" h-[510px] w-[450px] shadow-2xl"
+              className=" h-[510px] w-[450px] shadow-2xl rounded-l-lg"
               src="https://i.pinimg.com/736x/54/b9/ef/54b9ef6848259e884dee8a3744706439.jpg"
               alt=""
             />
           </figure>
           {/* login form */}
-          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl rounded-l-none">
             <form onSubmit={handleLogin} className="card-body ">
-              <div className="flex flex-col items-center">
-                <h3 className="text-xl mt-2">Welcome Back !</h3>
+              <div className="flex flex-col items-center my-auto">
+                <h3 className="text-xl">Welcome Back !</h3>
                 <button
                   onClick={handleGoogleSignIn}
-                  className="btn mt-3 w-full flex items-center justify-center gap-2 bg-white  border border-gray-400 rounded-lg px-4 py-2 "
+                  className="btn mt-3 w-full flex items-center justify-center gap-2 bg-white hover:bg-[#2F4749] hover:text-white  border border-gray-400 rounded-lg px-4 py-2 "
                 >
                   <FcGoogle className="size-5" />
                   Login in with Google
@@ -52,7 +52,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   placeholder="email"
-                  className="input input-bordered border-black focus:border-none w-full"
+                  className="input input-bordered border-gray-600 focus:outline-none w-full"
                   required
                 />
               </div>
@@ -66,7 +66,7 @@ const Login = () => {
                   type="password"
                   name="password"
                   placeholder="password"
-                  className="input input-bordered border-black focus:border-none w-full"
+                  className="input input-bordered border-gray-600 focus:outline-none w-full"
                   required
                 />
               </div>
