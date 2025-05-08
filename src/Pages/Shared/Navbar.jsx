@@ -54,10 +54,10 @@ const Navbar = () => {
                 {links}
             </ul>
           </div>
-          <a className=" text-xl flex items-center gap-1  font-semibold ">
-            <FaHashnode />
-            <strong>AssetNode</strong>
-          </a>
+          <NavLink to={'/'} className=" text-xl flex items-center gap-1  font-semibold ">
+            <FaHashnode  className='text-[#F7C99B]'/>
+            <strong className='text-[#2F4749]'>AssetNode</strong>
+          </NavLink>
         </div>
         <div className="navbar-end lg:flex">
           <ul className="menu menu-horizontal px-1">
