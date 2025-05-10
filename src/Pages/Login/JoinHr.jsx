@@ -78,7 +78,7 @@ const JoinHr = () => {
               <div className="form-control">
                 <label className="label">
                   <span className="label-text ">
-                    Company Logo
+                    Company Logo url
                   </span>
                 </label>
                 <input

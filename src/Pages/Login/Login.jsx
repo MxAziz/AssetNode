@@ -23,13 +23,13 @@ const Login = () => {
           {/* image */}
           <figure className="hidden lg:block">
             <img
-              className=" h-[510px] w-[450px] shadow-2xl"
+              className=" h-[510px] w-[450px] shadow-2xl rounded-l-lg"
               src="https://i.pinimg.com/736x/54/b9/ef/54b9ef6848259e884dee8a3744706439.jpg"
               alt=""
             />
           </figure>
           {/* login form */}
-          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl rounded-l-none">
             <form onSubmit={handleLogin} className="card-body ">
               <div className="flex flex-col items-center">
                 <h3 className="text-xl mt-2">Welcome Back !</h3>
