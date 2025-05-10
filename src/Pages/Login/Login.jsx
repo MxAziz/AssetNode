@@ -1,17 +1,61 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { FcGoogle } from 'react-icons/fc';
+import useAuth from '../../hooks/useAuth';
+import { useLocation, useNavigate } from 'react-router-dom';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import { toast } from 'react-toastify';
 
 const Login = () => {
 
+ const { signInUser, signInWithGoogle } = useAuth();
+    const navigate = useNavigate();
+  const location = useLocation();
+  const axiosPublic = useAxiosPublic();
+
+    const from = location.state?.from?.pathname || "/";
+
     const handleLogin = (e) => {
-        e.preventDefault();
+      e.preventDefault();
+      const form = e.target;
+      const email = form.email.value;
+      const password = form.password.value;
+      // console.log(email, password);
+
+      signInUser(email, password)
+        .then((result) => {
+          form.reset();
+          navigate(from, { replace: true });
+          toast.success("Login is successful");
+        })
+        .catch((error) => {
+          toast.error("Invalid Email or Password");
+        });
 
     }
 
     // google sign in function
-    const handleGoogleSignIn = () => {
-        // Implement Google sign-in logic here
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result.user);
+        const userInfo = {
+          email: result.user?.email,
+          name: result.user?.displayName,
+          photo: result.user?.photoURL,
+          role: "employee",
+        };
+        axiosPublic.post("/users", userInfo).then((res) => {
+          console.log(res.data);
+          navigate("/");
+        });
+        navigate("/");
+        toast.success("Google Sign-in successful!");
+      })
+      .catch((error) => {
+        console.log("auth related error", error);
+        toast.error("Google Sign-in failed!");
+      });
     }
 
     return (

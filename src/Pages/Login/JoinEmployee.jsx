@@ -1,16 +1,98 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { FcGoogle } from 'react-icons/fc';
+import useAuth from '../../hooks/useAuth';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const JoinEmployee = () => {
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+  const { signInWithGoogle, createUser, updateUserProfile } = useAuth();
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+
+  // Regular expression:
+  const passwordReg = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{6,}$/;
+
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const name = e.target.name.value;
+      const email = e.target.email.value;
+      const photo = e.target.photo.value;
+      const password = e.target.password.value;
+      const birth = e.target.dob.value;
+    console.log(name, email, password,photo, birth);
+
+    // update user profile
+    const profile = {
+      name: name,
+      photo: photo,
+      email: email,
+      birth:birth,
+      role: "employee",
+    };
+
+    // password validation
+    if (!passwordReg.test(password)) {
+      toast.error(
+        "Password Must have an Uppercase, a Lowercase, one digit and Length must be at least 6 characters"
+      );
+      return;
+    }
+
+    createUser(email, password)
+      .then((result) => {
+        // console.log(result.user);
+
+        updateUserProfile(name, photo)
+          .then(() => {
+            axiosPublic.post("/users", profile).then((res) => {
+              if (res.data.insertedId) {
+                e.target.reset();
+                toast.success("user added to the database");
+                navigate("/");
+              }
+            });
+          })
+          .catch((error) => console.log("user profile update error", error));
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
     }
 
     // google sign in function
     const handleGoogleSignIn = () => {
-        // Implement Google sign-in logic here
+          signInWithGoogle()
+      .then((result) => {
+        const { displayName, email, photoURL } = result.user;
+
+        // User data to save in MongoDB
+        const userData = {
+          name: displayName,
+          email,
+          photo: photoURL,
+          role: "employee",
+        };
+
+        // Send user data to server
+        axiosPublic.post("/users", userData).then((res) => {
+          if (res.data.insertedId) {
+            toast.success(
+              "Sign up with Google is successful and user is saved!"
+            );
+            navigate("/");
+          } else {
+            toast.info("Sign up with Google is successful and user info is not saved!");
+            navigate('/')
+          }
+        });
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
     }
 
     return (
