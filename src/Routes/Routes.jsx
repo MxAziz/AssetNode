@@ -8,6 +8,7 @@ import JoinEmployee from "../Pages/Login/JoinEmployee";
 import PrivateRoute from './PrivateRoute';
 import Profile from "../Pages/common/Profile";
 import UpdateUser from "../Pages/common/UpdateUser";
+import AddAsset from "../Pages/HrManager/AddAsset";
 
 
 export const router = createBrowserRouter([
@@ -36,6 +37,12 @@ export const router = createBrowserRouter([
             path: "/joinHr",
             element:<JoinHr></JoinHr>
           },
+          {
+            path: "/addAsset",
+            element: <PrivateRoute><AddAsset></AddAsset></PrivateRoute>
+          },
+
+
           {
             path: "/joinEmployee",
             element: <JoinEmployee></JoinEmployee>

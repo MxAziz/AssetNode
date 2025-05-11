@@ -39,28 +39,34 @@ const Navbar = () => {
   };
 
 
+  const handleActive = ({ isActive }) =>
+  isActive
+    ? " text-white bg-[#2F4749] hover:bg-[#F7C99B] hover:text-black"
+    : " hover:text-[#2F4749]";
+
+
   // navbar links
   const links = (
     <>
       <li>
-        <NavLink to={"/"}>Home</NavLink>
+        <NavLink className={handleActive} to={"/"}>Home</NavLink>
       </li>
       {user ? (
         <>
           {data?.role === "employee" && (
             <>
               <li>
-                <NavLink to="/myAssets" className="hover:underline">
+                <NavLink  to="/myAssets" className={handleActive}>
                   My Assets
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/myTeam" className="hover:underline">
+                <NavLink to="/myTeam" className={handleActive}>
                   My Team
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/requestAsset" className="hover:underline">
+                <NavLink to="/requestAsset" className={handleActive}>
                   Request for an Asset
                 </NavLink>
               </li>
@@ -70,24 +76,24 @@ const Navbar = () => {
           {data.role === "hr" && (
             <>
               <li>
-                <NavLink to={"/assetList"}>Asset List</NavLink>
+                <NavLink className={handleActive} to={"/assetList"}>Asset List</NavLink>
               </li>
               <li>
-                <NavLink to={"/addAsset"}> Add an Asset</NavLink>
+                <NavLink className={handleActive} to={"/addAsset"}> Add an Asset</NavLink>
               </li>
               <li>
-                <NavLink to={"/allRequest"}>All Request </NavLink>
+                <NavLink className={handleActive} to={"/allRequest"}>All Request </NavLink>
               </li>
               <li>
-                <NavLink to={"/myEmployee"}>My Employee List </NavLink>
+                <NavLink to={"/myEmployee"} className={handleActive}>My Employee List </NavLink>
               </li>
               <li>
-                <NavLink to={"/addEmployee"}>Add an Employee </NavLink>
+                <NavLink to={"/addEmployee"} className={handleActive}>Add an Employee </NavLink>
               </li>
             </>
           )}
           <li>
-            <NavLink to={"/profile"}>Profile</NavLink>
+            <NavLink to={"/profile"} className={handleActive}>Profile</NavLink>
           </li>
           <li className="lg:hidden">
             <button onClick={handleLogOut}>Logout</button>
@@ -178,13 +184,13 @@ const Navbar = () => {
             <strong className=' bg-gradient-to-r from-[#152d2f] to-[#f6c18beb] bg-clip-text text-transparent'>AssetNode</strong>
           </NavLink>
         </div>
-        <div className="navbar-end hidden lg:flex">
+        <div className="navbar-end hidden w-full lg:flex">
           <ul className="menu menu-horizontal flex justify-center items-center">
             {links}
           </ul>
         </div>
               <div className="navbar-center hidden">
-        </div>
+              </div>
       </div>
     </div>
   );
