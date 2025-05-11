@@ -156,30 +156,30 @@ const filteredAssets = allAssets.filter((asset) => {
         {/* Modal Section */}
         {modalData && (
           <div className="modal modal-open ">
-            <div className="modal-box ">
+            <div className="modal-box">
               <h3 className="font-bold text-lg">Request Asset</h3>
               <form onSubmit={handleRequest}>
-                <div className="form-control mb-4">
+                <div className="form-control mb-4 flex flex-col">
                   <label className="label">
                     <span className="label-text dark:text-white">Additional Notes</span>
                   </label>
                   <textarea
                     name="notes"
                     placeholder="Write additional notes here"
-                    className="textarea textarea-bordered dark:bg-gray-600"
+                    className="textarea textarea-bordered w-full "
                   ></textarea>
                 </div>
                 <div className="modal-action">
                   <button
                     type="submit"
-                    className=" px-2 rounded-md bg-[#4d2745] text-white hover:bg-[#634f73]"
+                    className=" px-2 rounded-md bg-[#2F4749] text-white hover:bg-[#F7C99B] hover:text-black py-2"
                   >
                     Submit Request
                   </button>
                   <button
                     type="button"
                     onClick={() => setModalData(null)}
-                    className="btn btn-secondary"
+                    className="btn bg-[#F7C99B] text-black hover:bg-[#2F4749] hover:text-white"
                   >
                     Cancel
                   </button>
