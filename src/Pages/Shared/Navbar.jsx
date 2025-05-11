@@ -1,28 +1,145 @@
-import React from 'react';
 import { FaHashnode } from 'react-icons/fa6';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import useAuth from './../../hooks/useAuth';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
+  const { user, signOutUser, loading } = useAuth();
+  const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["users"],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/users/${user?.email}`);
+      return res.data;
+    },
+  });
+
+  if (isLoading) return (
+    <div>
+      <span className="loading loading-bars loading-lg"></span>
+    </div>
+  );
+  if (isError) return <div>Error: {error.message}</div>;
+
+
+  const handleLogOut = () => {
+    signOutUser()
+      .then(() => {
+        navigate("/");
+        toast.success("Sign out successful");
+      })
+      .catch((error) => {
+        console.log("ERROR:", error);
+      });
+  };
+
+
   // navbar links
   const links = (
     <>
       <li>
         <NavLink to={"/"}>Home</NavLink>
       </li>
-      <li>
-        <NavLink to={"/joinEmployee"}>Join as Employee</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/joinHr"}>Join as HR Manager</NavLink>
-      </li>
-      <li>
-        <NavLink
-          className="btn btn-sm px-6 btn-outline text-white bg-[#2F4749] hover:bg-[#F7C99B] hover:text-black border-0"
-          to={"/login"}
-        >
-          Login
-        </NavLink>
-      </li>
+      {user ? (
+        <>
+          {data?.role === "employee" && (
+            <>
+              <li>
+                <NavLink to="/myAssets" className="hover:underline">
+                  My Assets
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/myTeam" className="hover:underline">
+                  My Team
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/requestAsset" className="hover:underline">
+                  Request for an Asset
+                </NavLink>
+              </li>
+            </>
+          )}
+
+          {data.role === "hr" && (
+            <>
+              <li>
+                <NavLink to={"/assetList"}>Asset List</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/addAsset"}> Add an Asset</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/allRequest"}>All Request </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/myEmployee"}>My Employee List </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/addEmployee"}>Add an Employee </NavLink>
+              </li>
+            </>
+          )}
+          <li>
+            <NavLink to={"/profile"}>Profile</NavLink>
+          </li>
+          <li className="lg:hidden">
+            <button onClick={handleLogOut}>Logout</button>
+          </li>
+          <li className="hidden lg:block">
+            <div className="dropdown dropdown-bottom dropdown-end">
+              <div tabIndex={0} role="text" className=" m-1">
+                <img
+                  className="size-10 rounded-full"
+                  src={
+                    user.photoURL ||
+                    "https://i.pinimg.com/474x/69/78/19/69781905dd57ba144ab71ca4271ab294.jpg"
+                  }
+                  alt=""
+                />
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu bg-[#F7C99B] text-black rounded-box z-[1] w-52 p-2 shadow"
+              >
+                <li className=" text-base">
+                  <a>{user?.displayName} </a>
+                </li>
+                <li>
+                  <a>{user.email} </a>
+                </li>
+                <li>
+                  <button onClick={handleLogOut}>Logout</button>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <NavLink to={"/joinEmployee"}>Join as Employee</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/joinHr"}>Join as HR Manager</NavLink>
+          </li>
+          <li>
+            <NavLink
+              className="btn btn-sm px-6 btn-outline  text-white bg-[#2F4749] hover:bg-[#F7C99B] hover:text-black border-0"
+              to={"/login"}
+            >
+              Login
+            </NavLink>
+          </li>
+        </>
+      )}
+
     </>
   );
 
@@ -51,6 +168,8 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
+              <h2>AssetNode</h2>
+              <hr />
                 {links}
             </ul>
           </div>
@@ -59,8 +178,8 @@ const Navbar = () => {
             <strong className=' bg-gradient-to-r from-[#152d2f] to-[#f6c18beb] bg-clip-text text-transparent'>AssetNode</strong>
           </NavLink>
         </div>
-        <div className="navbar-end lg:flex">
-          <ul className="menu menu-horizontal px-1">
+        <div className="navbar-end hidden lg:flex">
+          <ul className="menu menu-horizontal flex justify-center items-center">
             {links}
           </ul>
         </div>
