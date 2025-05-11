@@ -55,7 +55,7 @@ const Navbar = () => {
             </ul>
           </div>
           <NavLink to={'/'} className=" text-xl flex items-center gap-1  font-semibold ">
-            <FaHashnode  className='text-[#F7C99B]'/>
+            <FaHashnode  className='text-[#F7C99B] size-7'/>
             <strong className='text-[#2F4749]'>AssetNode</strong>
           </NavLink>
         </div>

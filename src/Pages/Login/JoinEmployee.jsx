@@ -1,9 +1,8 @@
-import React from 'react';
 import { Helmet } from 'react-helmet';
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../hooks/useAuth';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const JoinEmployee = () => {
@@ -44,7 +43,7 @@ const JoinEmployee = () => {
 
     createUser(email, password)
       .then((result) => {
-        // console.log(result.user);
+        console.log(result.user);
 
         updateUserProfile(name, photo)
           .then(() => {
@@ -52,7 +51,7 @@ const JoinEmployee = () => {
               if (res.data.insertedId) {
                 e.target.reset();
                 toast.success("user added to the database");
-                navigate("/");
+                Navigate("/");
               }
             });
           })
