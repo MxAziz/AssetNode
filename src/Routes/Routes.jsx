@@ -5,6 +5,9 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import JoinHr from "../Pages/Login/JoinHr";
 import JoinEmployee from "../Pages/Login/JoinEmployee";
+import PrivateRoute from './PrivateRoute';
+import Profile from "../Pages/common/Profile";
+import UpdateUser from "../Pages/common/UpdateUser";
 
 
 export const router = createBrowserRouter([
@@ -20,6 +23,14 @@ export const router = createBrowserRouter([
           {
             path: "/login",
             element:<Login></Login>
+          },
+          {
+            path: "/profile",
+            element:<PrivateRoute><Profile></Profile></PrivateRoute>
+          },
+          {
+            path: "/updateProfile",
+            element: <PrivateRoute><UpdateUser></UpdateUser></PrivateRoute>
           },
           {
             path: "/joinHr",
