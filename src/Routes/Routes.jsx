@@ -9,6 +9,7 @@ import PrivateRoute from './PrivateRoute';
 import Profile from "../Pages/common/Profile";
 import UpdateUser from "../Pages/common/UpdateUser";
 import AddAsset from "../Pages/HrManager/AddAsset";
+import AssetList from "../Pages/HrManager/AssetList";
 
 
 export const router = createBrowserRouter([
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
           {
             path: "/addAsset",
             element: <PrivateRoute><AddAsset></AddAsset></PrivateRoute>
+          },
+          {
+            path: "/assetList",
+            element: <PrivateRoute><AssetList></AssetList></PrivateRoute>
           },
 
 
