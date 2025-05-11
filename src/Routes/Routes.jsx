@@ -10,6 +10,7 @@ import Profile from "../Pages/common/Profile";
 import UpdateUser from "../Pages/common/UpdateUser";
 import AddAsset from "../Pages/HrManager/AddAsset";
 import AssetList from "../Pages/HrManager/AssetList";
+import RequestAsset from "../Pages/Employee/RequestAsset";
 
 
 export const router = createBrowserRouter([
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
           {
             path: "/joinEmployee",
             element: <JoinEmployee></JoinEmployee>
+          },
+          {
+            path: "/requestAsset",
+            element: <PrivateRoute><RequestAsset></RequestAsset></PrivateRoute>
           }
         ]
   },

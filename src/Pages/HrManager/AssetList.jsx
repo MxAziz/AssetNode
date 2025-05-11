@@ -33,7 +33,7 @@ const AssetList = () => {
       productQuantity: parseInt(e.target.quantity.value),
     };
 
-    axiosSecure
+    axiosPublic
       .put(`/products/${selectedProduct._id}`, updatedProduct)
       .then((res) => {
         if (res.data.modifiedCount > 0) {
@@ -47,7 +47,7 @@ const AssetList = () => {
 
   // Handle delete product
   const handleDelete = (id) => {
-    axiosSecure
+    axiosPublic
       .delete(`/products/${id}`)
       .then((res) => {
         if (res.data.deletedCount > 0) {
@@ -95,7 +95,7 @@ const AssetList = () => {
   }
 
   return (
-    <div className="bg-base-200">
+    <div className="bg-base-300">
       <div className="pt-8 lg:pt-[50px] pb-10 w-11/12 mx-auto">
         <Helmet>
           <title>AssetList - SmartAssetManager</title>

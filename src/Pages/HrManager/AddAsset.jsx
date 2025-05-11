@@ -25,7 +25,7 @@ const AddAsset = () => {
         console.log(res.data);
         if (res.data.insertedId) {
           toast.success("Product Added to the Database!");
-          navigate("/");
+          navigate("/assetList");
         }
       })
       .catch((error) => {
