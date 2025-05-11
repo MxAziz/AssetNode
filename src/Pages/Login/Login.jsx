@@ -59,8 +59,8 @@ const Login = () => {
     }
 
     return (
-      <div className="bg-gradient-to-t from-[#F7C99B] to-[#2F4749]  ">
-        <div className="pt-[110px] pb-16 w-2/3 mx-auto flex">
+      <div className="bg-gradient-to-t from-[#f7c99be8] to-[#2F4749]  ">
+        <div className="pt-[80px] pb-16 w-2/3 mx-auto flex">
           <Helmet>
             <title>Login - AssetNode</title>
           </Helmet>
@@ -75,7 +75,7 @@ const Login = () => {
           {/* login form */}
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl rounded-l-none">
             <form onSubmit={handleLogin} className="card-body ">
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center mt-8">
                 <h3 className="text-xl mt-2">Welcome Back !</h3>
                 <button
                   onClick={handleGoogleSignIn}
@@ -96,7 +96,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   placeholder="email"
-                  className="input input-bordered border-black focus:border-none"
+                  className="input input-bordered w-full border-black focus:outline-none"
                   required
                 />
               </div>
@@ -110,7 +110,7 @@ const Login = () => {
                   type="password"
                   name="password"
                   placeholder="password"
-                  className="input input-bordered border-black focus:border-none"
+                  className="input input-bordered w-full border-black focus:outline-none"
                   required
                 />
               </div>
