@@ -56,7 +56,7 @@ const Navbar = () => {
           </div>
           <NavLink to={'/'} className=" text-xl flex items-center gap-1  font-semibold ">
             <FaHashnode  className='text-[#F7C99B] size-7'/>
-            <strong className='text-[#2F4749]'>AssetNode</strong>
+            <strong className=' bg-gradient-to-r from-[#152d2f] to-[#f6c18beb] bg-clip-text text-transparent'>AssetNode</strong>
           </NavLink>
         </div>
         <div className="navbar-end lg:flex">

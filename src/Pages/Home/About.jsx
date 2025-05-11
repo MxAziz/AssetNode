@@ -5,7 +5,7 @@ const About = () => {
   return (
     <div className="bg-gray-100  py-20">
       <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-4xl  font-bold mb-6 ">About Us</h2>
+        <h2 className="text-4xl  font-bold mb-6  bg-gradient-to-r from-[#23494d] to-[#f6c18b] bg-clip-text text-transparent">About Us</h2>
         <p className="text-lg text-gray-700 mb-8">
           Welcome to SmartAssetManager! Our platform helps HR Managers
           efficiently manage assets, monitor employee usage, and simplify
