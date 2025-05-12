@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const RequestAsset = () => {
   const [search, setSearch] = useState("");
@@ -87,7 +88,10 @@ const filteredAssets = allAssets.filter((asset) => {
 
   return (
     <div className="">
-      <div className="container pt-[50px] pb-12 mx-auto">
+      <Helmet>
+        <title>Request an asset.</title>
+      </Helmet>
+      <div className="container pt-[50px] bg-gray-100 pb-12 mx-auto">
         <div className="flex justify-between items-center w-11/12 mx-auto">
           {/* Search */}
           <div className="mb-4 max-w-xl w-full">

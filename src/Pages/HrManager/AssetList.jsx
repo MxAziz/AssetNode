@@ -47,8 +47,9 @@ const AssetList = () => {
 
   // Handle delete product
   const handleDelete = (id) => {
+    console.log("Deleting product with ID:", id);
     axiosPublic
-      .delete(`/products/${id}`)
+      .delete(`/product/${id}`)
       .then((res) => {
         if (res.data.deletedCount > 0) {
           toast.success("Product deleted successfully!");
@@ -98,7 +99,7 @@ const AssetList = () => {
     <div className="bg-base-300">
       <div className="pt-8 lg:pt-[50px] pb-10 w-11/12 mx-auto">
         <Helmet>
-          <title>AssetList - SmartAssetManager</title>
+          <title>AssetList - AssetNode</title>
         </Helmet>
         <div className="lg:flex justify-between items-center">
           {/* Search Section */}

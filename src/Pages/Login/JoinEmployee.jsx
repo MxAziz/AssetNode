@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet';
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../hooks/useAuth';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const JoinEmployee = () => {
@@ -50,8 +50,8 @@ const JoinEmployee = () => {
             axiosPublic.post("/users", profile).then((res) => {
               if (res.data.insertedId) {
                 e.target.reset();
-                toast.success("user added to the database");
-                Navigate("/");
+                toast.success("As a new employee, you are successfully registered!");
+                navigate("/");
               }
             });
           })

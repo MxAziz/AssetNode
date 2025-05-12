@@ -14,6 +14,8 @@ import RequestAsset from "../Pages/Employee/RequestAsset";
 import MyAsset from "../Pages/Employee/MyAsset";
 import MyTeam from "../Pages/Employee/MyTeam";
 import AllRequest from "../Pages/HrManager/AllRequest";
+import MyEmployee from "../Pages/HrManager/MyEmployee";
+import AddEmployee from "../Pages/HrManager/AddEmployee";
 
 
 export const router = createBrowserRouter([
@@ -54,6 +56,14 @@ export const router = createBrowserRouter([
           {
             path: "/allRequest",
             element: <PrivateRoute><AllRequest></AllRequest></PrivateRoute>
+          },
+          {
+            path: "/myEmployee",
+            element: <PrivateRoute><MyEmployee></MyEmployee></PrivateRoute>
+          },
+          {
+            path: "/addEmployee",
+            element: <PrivateRoute><AddEmployee></AddEmployee></PrivateRoute>
           },
 
           // employee routes
