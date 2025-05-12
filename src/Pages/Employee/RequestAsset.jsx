@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useNavigate } from "react-router-dom";
 
 const RequestAsset = () => {
   const [search, setSearch] = useState("");
@@ -14,6 +15,7 @@ const RequestAsset = () => {
   const [modalData, setModalData] = useState(null);
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
 
   const {
     data: allAssets = [],
@@ -75,6 +77,7 @@ const filteredAssets = allAssets.filter((asset) => {
           toast.success("Asset request submitted successfully!");
           refetch();
           setModalData(null);
+          navigate("/myAssets");
         }
       })
       .catch(() => {
@@ -93,7 +96,7 @@ const filteredAssets = allAssets.filter((asset) => {
               placeholder="Search by asset name"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="input input-bordered w-full  border "
+              className="input input-bordered w-full  border border-[#2F4749] focus:outline-none focus:border-[#F7C99B] focus:ring-0"
             />
           </div>
 
@@ -107,7 +110,7 @@ const filteredAssets = allAssets.filter((asset) => {
                   availability: e.target.value,
                 })
               }
-              className="select select-bordered "
+              className="select select-bordered border-2 border-[#2F4749] focus:outline-none focus:border-[#F7C99B] focus:ring-0"
             >
               <option value="">Filter by Availability</option>
               <option value="Available">Available</option>
@@ -118,7 +121,7 @@ const filteredAssets = allAssets.filter((asset) => {
               onChange={(e) =>
                 setSelectedFilter({ ...selectedFilter, type: e.target.value })
               }
-              className="select select-bordered "
+              className="select select-bordered border-2 border-[#2F4749] focus:outline-none focus:border-[#F7C99B] focus:ring-0"
             >
               <option value="">Filter by Type</option>
               <option value="Returnable">Returnable</option>
@@ -143,7 +146,7 @@ const filteredAssets = allAssets.filter((asset) => {
                 </p>
                 <button
                   onClick={() => setModalData(asset)}
-                  className="btn border-none bg-[#2F4749] text-white hover:bg-[#F7C99B] hover:text-black mt-4"
+                  className="btn border-none bg-[#F7C99B] text-black hover:bg-[#2F4749] hover:text-white mt-4"
                   disabled={asset.productQuantity < 1}
                 >
                   Request

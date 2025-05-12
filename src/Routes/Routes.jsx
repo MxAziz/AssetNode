@@ -13,6 +13,7 @@ import AssetList from "../Pages/HrManager/AssetList";
 import RequestAsset from "../Pages/Employee/RequestAsset";
 import MyAsset from "../Pages/Employee/MyAsset";
 import MyTeam from "../Pages/Employee/MyTeam";
+import AllRequest from "../Pages/HrManager/AllRequest";
 
 
 export const router = createBrowserRouter([
@@ -37,6 +38,7 @@ export const router = createBrowserRouter([
             path: "/updateProfile",
             element: <PrivateRoute><UpdateUser></UpdateUser></PrivateRoute>
           },
+          // hr routes
           {
             path: "/joinHr",
             element:<JoinHr></JoinHr>
@@ -49,8 +51,12 @@ export const router = createBrowserRouter([
             path: "/assetList",
             element: <PrivateRoute><AssetList></AssetList></PrivateRoute>
           },
+          {
+            path: "/allRequest",
+            element: <PrivateRoute><AllRequest></AllRequest></PrivateRoute>
+          },
 
-
+          // employee routes
           {
             path: "/joinEmployee",
             element: <JoinEmployee></JoinEmployee>
