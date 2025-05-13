@@ -28,8 +28,8 @@ const AllRequest = () => {
         status,
         });
         if (res.data.message === "Status updated successfully") {
-            toast.success("Status updated successfully");
-        refetch(); // data reload
+            toast.success(`Request ${status} successfully!`);
+            refetch(); // data reload
         }
     } catch (error) {
         console.error("Failed to update status", error);
@@ -60,17 +60,40 @@ const AllRequest = () => {
                   <td>{product.employeeName}</td>
                   <td>{product.employeeEmail}</td>
                   <td>{new Date(product.requestDate).toLocaleDateString()}</td>
-                  <td>{product.requestStatus}</td>
+                  <td>
+                    <span
+                      className={`px-3 py-1 rounded-full text-white font-semibold
+                  ${product.requestStatus === "Pending" ? "bg-yellow-500 text-black" : ""}
+                  ${product.requestStatus === "Approved" ? "bg-green-600" : ""}
+                  ${product.requestStatus === "Rejected" ? "bg-red-600" : ""}`}
+                    >
+                      {product.requestStatus}
+                    </span>
+                  </td>
                   <td className="flex justify-start items-center gap-2">
                     <button
-                      className="rounded-md bg-[#2F4749] text-white hover:bg-[#F7C99B] hover:text-black px-4 py-[6px]  mr-2"
-                       onClick={() => handleStatusUpdate(product._id, "Approved")}
+                        disabled={product.requestStatus !== "Pending"}
+                        className={`rounded-md px-4 py-[6px] ${
+                          product.requestStatus !== "Pending"
+                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                            : "bg-[#F7C99B] text-black hover:bg-[#2F4749] hover:text-white"
+                        }`}
+                      onClick={() =>
+                        handleStatusUpdate(product._id, "Approved")
+                      }
                     >
                       Approve
                     </button>
                     <button
-                      className="rounded-md px-4 py-[6px] bg-[#F7C99B] text-black"
-                    onClick={() => handleStatusUpdate(product._id, "Rejected")}
+                      disabled={product.requestStatus !== "Pending"}
+                      className={`rounded-md px-4 py-[6px] mr-2 ${
+                        product.requestStatus !== "Pending"
+                          ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                          : "bg-[#2F4749] text-white hover:bg-[#F7C99B] hover:text-black"
+                      }`}
+                      onClick={() =>
+                        handleStatusUpdate(product._id, "Rejected")
+                      }
                     >
                       Reject
                     </button>

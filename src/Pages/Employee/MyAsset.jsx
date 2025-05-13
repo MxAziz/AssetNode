@@ -68,7 +68,7 @@ const MyAsset = () => {
                 <td>
                   {asset.requestStatus === "Pending" && (
                     <button
-                      className="bg-[#4d2745] text-white px-3 py-2 rounded"
+                      className="bg-[#2F4749] text-white hover:bg-[#F7C99B] hover:text-black px-3 py-2 rounded"
                       onClick={() => handleCancelRequest(asset._id)}
                     >
                       Cancel Request
