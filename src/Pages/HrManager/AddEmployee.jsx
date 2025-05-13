@@ -145,10 +145,13 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAuth from "../../hooks/useAuth";
 
 const AddEmployee = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
+  console.log(user);
 
   const [currentPackage, setCurrentPackage] = useState({
     employeeCount: 3,
@@ -166,22 +169,61 @@ const AddEmployee = () => {
       return res.data;
     },
   });
+  console.log(employees);
 
-  const addEmployeeMutation = useMutation({
-    mutationFn: (employeeId) =>
-      axiosPublic.put(`/add-to-team/${employeeId}`),
-    onSuccess: () => {
-      toast.success("Employee added to the team!");
-      refetch();
+//   {
+//   "name": "John Doe",
+//   "email": "john@example.com",
+//   "profileImage": "https://example.com/image.jpg",
+//   "companyId": null, // যদি affiliated না থাকে, তাহলে null
+//   "teamId": "team_abc123", // HR যে টিমে assign করবে
+//   "role": "employee"
+// }
+
+
+  // const addEmployeeMutation = useMutation({
+  //   mutationFn: (employeeId) =>
+  //     axiosPublic.put(`/add-to-team/${employeeId}`),
+  //   onSuccess: () => {
+  //     toast.success("Employee added to the team!");
+  //     refetch();
+  //     setCurrentPackage((prev) => ({
+  //       ...prev,
+  //       employeeCount: prev.employeeCount + 1,
+  //     }));
+  //   },
+  //   onError: (error) => {
+  //     toast.error(error.response?.data?.message || error.message);
+  //   },
+  // });
+
+  const handleAddEmployee = async (employeeId) => {
+  if (currentPackage.employeeCount >= currentPackage.packageLimit) {
+    toast.warning("Package limit reached. Please upgrade.");
+    return;
+  }
+
+  try {
+    const res = await axiosPublic.put(`/add-to-team/${employeeId}`, {
+      teamId: user?.teamId,
+      companyId: user?.companyId,
+    });
+
+    if (res.data.success) {
+      toast.success("Employee added to your team.");
+      refetch(); // রিফ্রেশ employee list
       setCurrentPackage((prev) => ({
         ...prev,
         employeeCount: prev.employeeCount + 1,
       }));
-    },
-    onError: (error) => {
-      toast.error(error.response?.data?.message || error.message);
-    },
-  });
+    } else {
+      toast.error(res.data.message || "Something went wrong.");
+    }
+  } catch (error) {
+    toast.error(error.response?.data?.message || error.message);
+  }
+};
+
 
   const handleUpgrade = () => navigate("/upgrade-package");
 
@@ -218,7 +260,7 @@ const AddEmployee = () => {
         <div className="overflow-x-auto w-11/12 mx-auto">
           <h2 className="text-2xl font-bold mb-4">Add Employees to the Team</h2>
           <table className="table w-full">
-            <thead>
+            <thead className="bg-[#2F4749] text-white">
               <tr>
                 <th>Select</th>
                 <th>Image</th>
@@ -231,7 +273,7 @@ const AddEmployee = () => {
                 employees.map((employee) => (
                   <tr key={employee._id}>
                     <td>
-                      <input type="checkbox" className="checkbox " />
+                      <input type="checkbox" className="checkbox border-2 border-black" />
                     </td>
                     <td>
                       <img
@@ -240,10 +282,11 @@ const AddEmployee = () => {
                         className="w-12 h-12 rounded-full"
                       />
                     </td>
-                    <td>{employee.name}</td>
+                    <td className=" font-bold text-xl">{employee.name}</td>
                     <td>
                       <button
-                        onClick={() => addEmployeeMutation.mutate(employee._id)}
+                        // onClick={() => addEmployeeMutation.mutate(employee._id)}
+                        onClick={()=> handleAddEmployee(employee._id)}
                         className="btn btn-sm bg-[#2F4749] text-white hover:bg-[#F7C99B] hover:text-black border-none"
                         disabled={currentPackage.employeeCount >= currentPackage.packageLimit}
                       >

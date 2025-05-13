@@ -176,12 +176,17 @@ const Navbar = () => {
             >
               <h2>AssetNode</h2>
               <hr />
-                {links}
+              {links}
             </ul>
           </div>
-          <NavLink to={'/'} className=" text-xl flex items-center gap-1  font-semibold ">
-            <FaHashnode  className='text-[#F7C99B] size-7'/>
-            <strong className=' bg-gradient-to-r from-[#152d2f] to-[#f6c18beb] bg-clip-text text-transparent'>AssetNode</strong>
+          <NavLink
+            to={"/"}
+            className=" text-xl flex items-center gap-1  font-semibold "
+          >
+            <FaHashnode className="text-[#F7C99B] size-7" />
+            <strong className=" bg-gradient-to-r from-[#152d2f] to-[#f6c18beb] bg-clip-text text-transparent">
+              AssetNode
+            </strong>
           </NavLink>
         </div>
         <div className="navbar-end hidden w-full lg:flex">
@@ -189,8 +194,7 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-              <div className="navbar-center hidden">
-              </div>
+        <div className="navbar-center hidden"></div>
       </div>
     </div>
   );
