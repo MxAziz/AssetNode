@@ -211,7 +211,7 @@ const AddEmployee = () => {
 
     if (res.data.success) {
       toast.success("Employee added to your team.");
-      refetch(); // রিফ্রেশ employee list
+      refetch();
       setCurrentPackage((prev) => ({
         ...prev,
         employeeCount: prev.employeeCount + 1,

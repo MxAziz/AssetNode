@@ -60,7 +60,7 @@ const PlanCard = ({
     className={`transform transition duration-300 hover:scale-105 flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border shadow-xl xl:p-8 ${
       highlighted
         ? "border-[#F7C99B] shadow-[#F7C99B] scale-105"
-        : "border-[#2F4749]"
+        : "border-[#2F4749]  "
     }`}
   >
     <h3 className="mb-4 text-2xl font-semibold">{name}</h3>
